@@ -31,18 +31,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    address: {
-      type: Sequelize.STRING,
-    },
-    zipCode: {
-      type: Sequelize.STRING,
-    },
-    city: {
-      type: Sequelize.STRING,
-    },
-    country: {
-      type: Sequelize.STRING,
-    },
+
     cgv: {
       type: Sequelize.BOOLEAN,
       defaultValue: false,

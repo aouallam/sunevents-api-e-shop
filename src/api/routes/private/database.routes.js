@@ -6,7 +6,7 @@ const router = express.Router();
 router.post("/init-db", async (req, res) => {
   try {
     const { mainDB, body } = req;
-    mainDB.sequelize.sync(body || { alter: true }).then(() => {
+    mainDB.sequelize.sync({ alter: true }).then(() => {
       res.send({ message: "alter and re-sync db." });
     });
   } catch (error) {
