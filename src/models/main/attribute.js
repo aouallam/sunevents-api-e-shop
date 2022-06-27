@@ -17,6 +17,9 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
+    imgLink: {
+      type: Sequelize.STRING,
+    },
   });
 
   Index.associate = (models) => {
