@@ -20,7 +20,7 @@ module.exports = (sequelize, Sequelize) => {
   });
 
   Index.associate = (models) => {
-    Index.belongsTo(models.product);
+    Index.belongsTo(models.partner);
   };
 
   return Index;
