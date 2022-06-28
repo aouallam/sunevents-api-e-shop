@@ -42,6 +42,7 @@ const isAuth = async (req, res, next) => {
         where: { externalId: user.uuid, email: user.email },
         defaults: { ...user, ...object },
       });
+      console.log(customer);
       req.customer = customer;
       next();
     } else {
