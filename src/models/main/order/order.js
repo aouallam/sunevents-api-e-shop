@@ -13,11 +13,8 @@ module.exports = (sequelize, Sequelize) => {
 
   Index.associate = (models) => {
     Index.belongsTo(models.partner);
-    Index.belongsToMany(models.customer, {
-      primaryKey: true,
-      through: "customerOrder",
-      onDelete: "cascade",
-    });
+    Index.belongsTo(models.customerOrder);
+    Index.hasMany(models.orderLine);
   };
 
   return Index;

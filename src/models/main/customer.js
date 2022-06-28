@@ -44,10 +44,7 @@ module.exports = (sequelize, Sequelize) => {
   });
 
   Index.associate = (models) => {
-    Index.belongsToMany(models.order, {
-      through: "customerOrder",
-      onDelete: "cascade",
-    });
+    Index.hasMany(models.customerOrder);
   };
 
   return Index;
