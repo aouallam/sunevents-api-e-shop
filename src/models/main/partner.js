@@ -57,6 +57,7 @@ module.exports = (sequelize, Sequelize) => {
   Index.associate = (models) => {
     Index.hasMany(models.product);
     Index.hasMany(models.attributeKey);
+    Index.hasMany(models.order);
   };
 
   return Index;

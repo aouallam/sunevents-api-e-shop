@@ -43,7 +43,12 @@ module.exports = (sequelize, Sequelize) => {
     },
   });
 
-  Index.associate = (models) => {};
+  Index.associate = (models) => {
+    Index.belongsToMany(models.order, {
+      through: "customerOrder",
+      onDelete: "cascade",
+    });
+  };
 
   return Index;
 };
