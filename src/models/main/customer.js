@@ -45,6 +45,10 @@ module.exports = (sequelize, Sequelize) => {
 
   Index.associate = (models) => {
     Index.hasMany(models.customerOrder);
+    Index.belongsToMany(models.product, {
+      through: "shoppingCart",
+      onDelete: "cascade",
+    });
   };
 
   return Index;

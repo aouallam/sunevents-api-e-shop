@@ -50,6 +50,10 @@ module.exports = (sequelize, Sequelize) => {
       through: "categoryProduct",
       onDelete: "cascade",
     });
+    Index.belongsToMany(models.customer, {
+      through: "shoppingCart",
+      onDelete: "cascade",
+    });
     Index.hasMany(models.attribute);
   };
 
