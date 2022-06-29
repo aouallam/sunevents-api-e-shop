@@ -12,4 +12,11 @@ router.post(
   _wishLists.add
 );
 
+router.delete(
+  "/wishLists/delete/:id",
+  validation(__wishLists.deleteItem),
+  authCustomer.isAuth,
+  _wishLists.deleteItem
+);
+
 module.exports = router;

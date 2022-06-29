@@ -29,12 +29,12 @@ exports.findCart = async (req, res) => {
   }
 };
 
-exports.suppItem = async (req, res) => {
+exports.deleteItem = async (req, res) => {
   try {
     const { mainDB } = req;
     const { id } = req.params;
 
-    const shop = await _shoppingCart.suppItem(id, {
+    const shop = await _wishList.deleteItem(id, {
       db: mainDB,
     });
     res.send(shop);

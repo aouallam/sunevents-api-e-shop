@@ -30,6 +30,38 @@ const newWishListGroup = ({ db, body }) =>
     }
   });
 
+const findOne = (id, options) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const { db, where = {}, include = [], validate } = options;
+      const arrayInclude = [];
+      const objWhere = {};
+
+      Object.assign(objWhere, where);
+      const wishListGroup = await db.wishListGroup.findByPk(id, {
+        where: objWhere,
+        include: arrayInclude.concat(include),
+      });
+      if (!wishListGroup && validate) {
+        return reject({
+          statusCode: 404,
+          data: {
+            message: "Wish list not found",
+            code: "WishList_not_found",
+          },
+        });
+      }
+
+      resolve({ wishListGroup });
+    } catch (error) {
+      const err = _utils.getErrors(error);
+      reject({
+        statusCode: err.statusCode,
+        data: err.data,
+      });
+    }
+  });
 module.exports = {
   newWishListGroup,
+  findOne,
 };

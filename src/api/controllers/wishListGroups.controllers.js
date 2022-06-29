@@ -15,3 +15,17 @@ exports.add = async (req, res) => {
     res.status(err.statusCode).json(err.data);
   }
 };
+
+exports.findOne = async (req, res) => {
+  try {
+    const { mainDB, wishListGroup } = req;
+    const { id } = req.params;
+    await _wishListGroup.findOne(id, {
+      db: mainDB,
+    });
+    res.send(wishListGroup);
+  } catch (error) {
+    const err = getErrors(error);
+    res.status(err.statusCode).json(err.data);
+  }
+};

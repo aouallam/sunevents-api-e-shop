@@ -10,4 +10,10 @@ const add = yup.object({
   }),
 });
 
-module.exports = { add };
+const findOne = yup.object({
+  headers: yup.object({
+    "access-key": yup.string().required(),
+  }),
+});
+
+module.exports = { add, findOne };

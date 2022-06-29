@@ -15,7 +15,7 @@ const findCart = yup.object({
   }),
 });
 
-const suppItem = yup.object({
+const deleteItem = yup.object({
   headers: yup.object({
     "access-key": yup.string().required(),
   }),
@@ -23,4 +23,4 @@ const suppItem = yup.object({
     id: yup.string().uuid().required(),
   }),
 });
-module.exports = { add, findCart, suppItem };
+module.exports = { add, findCart, deleteItem };

@@ -28,6 +28,27 @@ const addToWishList = ({ db, body }) =>
     }
   });
 
+const deleteItem = (id, options) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const { db } = options;
+      await db.wishList.destroy({
+        where: {
+          id,
+        },
+      });
+
+      resolve();
+    } catch (error) {
+      const err = _utils.getErrors(error);
+      reject({
+        statusCode: err.statusCode,
+        data: err.data,
+      });
+    }
+  });
+
 module.exports = {
   addToWishList,
+  deleteItem,
 };

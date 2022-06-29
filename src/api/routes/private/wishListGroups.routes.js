@@ -12,4 +12,11 @@ router.post(
   _wishListGroups.add
 );
 
+router.get(
+  "/wishListGroups/findOne/:id",
+  validation(__wishListGroups.findOne),
+  authCustomer.isAuth,
+  _wishListGroups.findOne
+);
+
 module.exports = router;
