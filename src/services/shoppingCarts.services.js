@@ -85,9 +85,23 @@ const findCart = (id, options) =>
     try {
       const { db } = options;
       const customer = await db.customer.findByPk(id, {
-        include: [{ model: db.product, attributes: ["name", "priceU", "tax"] }],
+        include: [
+          {
+            model: db.product,
+            attributes: ["name", "priceU", "tax", "id"],
+          },
+        ],
       });
+
       const items = customer?.products || [];
+      items.forEach(async (item) => {
+        try {
+          const product = await db.product.findByPk(item.id);
+          if (item.shoppingCart.quantity > product?.stock) {
+            suppItem(item.shoppingCart.id, { db });
+          }
+        } catch (error) {}
+      });
       const total = items.reduce((prev, cur) => {
         return prev + cur.priceU * cur.shoppingCart.quantity;
       }, 0);
@@ -104,11 +118,29 @@ const findCart = (id, options) =>
     }
   });
 
-  
-const update = () => new Promise(async (resolve, reject) => {});
+const suppItem = (id, options) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const { db } = options;
+      await db.shoppingCart.destroy({
+        where: {
+          id,
+        },
+      });
+
+      resolve();
+    } catch (error) {
+      const err = _utils.getErrors(error);
+      reject({
+        statusCode: err.statusCode,
+        data: err.data,
+      });
+    }
+  });
 
 module.exports = {
   addToCart,
   setQuantity,
   findCart,
+  suppItem,
 };

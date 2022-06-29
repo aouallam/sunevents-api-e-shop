@@ -1,13 +1,9 @@
 module.exports = (sequelize, Sequelize) => {
-  const Index = sequelize.define("shoppingCart", {
+  const Index = sequelize.define("wishList", {
     id: {
       primaryKey: true,
       type: Sequelize.UUID,
       defaultValue: Sequelize.UUIDV4,
-    },
-    quantity: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
     },
   });
 

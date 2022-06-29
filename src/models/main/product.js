@@ -54,6 +54,11 @@ module.exports = (sequelize, Sequelize) => {
       through: "shoppingCart",
       onDelete: "cascade",
     });
+    Index.belongsToMany(models.wishListGroup, {
+      through: "wishList",
+      onDelete: "cascade",
+    });
+
     Index.hasMany(models.attribute);
   };
 

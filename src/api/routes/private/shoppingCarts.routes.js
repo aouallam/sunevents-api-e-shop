@@ -26,4 +26,18 @@ router.get(
   _shoppingCarts.findCart
 );
 
+router.get(
+  "/shoppingCarts/find",
+  validation(__shoppingCarts.findCart),
+  authCustomer.isAuth,
+  _shoppingCarts.findCart
+);
+
+router.delete(
+  "/shoppingCarts/delete/:id",
+  validation(__shoppingCarts.suppItem),
+  authCustomer.isAuth,
+  _shoppingCarts.suppItem
+);
+
 module.exports = router;

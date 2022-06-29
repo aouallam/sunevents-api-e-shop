@@ -45,6 +45,7 @@ module.exports = (sequelize, Sequelize) => {
 
   Index.associate = (models) => {
     Index.hasMany(models.customerOrder);
+    // Index.hasMany(models.wishListGroup);
     Index.belongsToMany(models.product, {
       through: "shoppingCart",
       onDelete: "cascade",
