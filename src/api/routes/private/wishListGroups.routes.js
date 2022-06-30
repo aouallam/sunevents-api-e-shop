@@ -19,4 +19,10 @@ router.get(
   _wishListGroups.findOne
 );
 
+router.delete(
+  "/wishListGroups/delWishListGroup/:id",
+  validation(__wishListGroups.delWishListGroup),
+  authCustomer.isAuth,
+  _wishListGroups.delWishListGroup
+);
 module.exports = router;

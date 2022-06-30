@@ -16,4 +16,12 @@ const findOne = yup.object({
   }),
 });
 
-module.exports = { add, findOne };
+const delWishListGroup = yup.object({
+  headers: yup.object({
+    "access-key": yup.string().required(),
+  }),
+  params: yup.object({
+    id: yup.string().uuid().required(),
+  }),
+});
+module.exports = { add, findOne, delWishListGroup };

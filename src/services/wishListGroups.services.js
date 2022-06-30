@@ -33,16 +33,16 @@ const newWishListGroup = ({ db, body }) =>
 const findOne = (id, options) =>
   new Promise(async (resolve, reject) => {
     try {
-      const { db, where = {}, include = [], validate } = options;
-      const arrayInclude = [];
-      const objWhere = {};
+      const { db } = options;
 
-      Object.assign(objWhere, where);
       const wishListGroup = await db.wishListGroup.findByPk(id, {
-        where: objWhere,
-        include: arrayInclude.concat(include),
+        include: {
+          model: db.product,
+          attributes: ["name", "priceU", "tax", "id"],
+        },
       });
-      if (!wishListGroup && validate) {
+      const items = wishListGroup?.products || [];
+      if (!wishListGroup) {
         return reject({
           statusCode: 404,
           data: {
@@ -52,7 +52,26 @@ const findOne = (id, options) =>
         });
       }
 
-      resolve({ wishListGroup });
+      resolve({ items });
+    } catch (error) {
+      const err = _utils.getErrors(error);
+      reject({
+        statusCode: err.statusCode,
+        data: err.data,
+      });
+    }
+  });
+const delWishListGroup = (id, options) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const { db } = options;
+      await db.wishListGroup.destroy({
+        where: {
+          id,
+        },
+      });
+
+      resolve();
     } catch (error) {
       const err = _utils.getErrors(error);
       reject({
@@ -64,4 +83,5 @@ const findOne = (id, options) =>
 module.exports = {
   newWishListGroup,
   findOne,
+  delWishListGroup,
 };

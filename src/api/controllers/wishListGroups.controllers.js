@@ -18,12 +18,27 @@ exports.add = async (req, res) => {
 
 exports.findOne = async (req, res) => {
   try {
-    const { mainDB, wishListGroup } = req;
+    const { mainDB } = req;
     const { id } = req.params;
-    await _wishListGroup.findOne(id, {
+    const wishListgroup = await _wishListGroup.findOne(id, {
       db: mainDB,
     });
-    res.send(wishListGroup);
+    res.send(wishListgroup);
+  } catch (error) {
+    const err = getErrors(error);
+    res.status(err.statusCode).json(err.data);
+  }
+};
+
+exports.delWishListGroup = async (req, res) => {
+  try {
+    const { mainDB } = req;
+    const { id } = req.params;
+
+    const shop = await _wishListGroup.delWishListGroup(id, {
+      db: mainDB,
+    });
+    res.send(shop);
   } catch (error) {
     const err = getErrors(error);
     res.status(err.statusCode).json(err.data);
